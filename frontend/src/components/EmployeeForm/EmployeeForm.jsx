@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Form, useNavigate, useSubmit } from 'react-router-dom';
+import { validateEmployee } from '../../utils/validation/employeeValidation';
 import './EmployeeForm.css';
+
 
 const EmployeeForm = ({ employeeId, initialData, actionData }) => {
   const navigate = useNavigate();
@@ -37,43 +39,12 @@ const EmployeeForm = ({ employeeId, initialData, actionData }) => {
     }
   }, [actionData, navigate]);
 
-  const validateForm = (formElement) => {
-    const formData = new FormData(formElement);
-    const newErrors = {};
-    
-    if (!formData.get('first_name')) newErrors.first_name = 'First name is required';
-    if (!formData.get('last_name')) newErrors.last_name = 'Last name is required';
-    if (!formData.get('email') || !/\S+@\S+\.\S+/.test(formData.get('email'))) {
-      newErrors.email = 'Valid email is required';
-    }
-    if (!formData.get('date_of_birth')) {
-      newErrors.date_of_birth = 'Date of birth is required';
-    } else {
-      const age = calculateAge(new Date(formData.get('date_of_birth')));
-      if (age < 18) newErrors.date_of_birth = 'Employee must be at least 18 years old';
-    }
-    if (!formData.get('salary') || formData.get('salary') < 15000) {
-      newErrors.salary = 'Salary must be at least $15,000';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const calculateAge = (birthDate) => {
-    const today = new Date();
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const monthDiff = today.getMonth() - birthDate.getMonth();
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-    return age;
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    if (!validateForm(e.target)) {
+    const validationErrors = validateEmployee(new FormData(e.target));
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       return;
     }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, useLoaderData, useActionData } from 'react-router-dom';
-import EmployeeForm from '../components/EmployeeForm';
+import EmployeeForm from '../components/EmployeeForm/EmployeeForm';
 import { employeeApi } from '../services/api';
 
 export async function loadEmployee({ params }) {
