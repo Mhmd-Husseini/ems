@@ -35,7 +35,7 @@ export const employeeApi = {
 
   createEmployee: async (formData) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/employees/`, {
+      const response = await fetch(`${API_BASE_URL}/employees/create/`, {
         method: 'POST',
         body: formData,
       });
