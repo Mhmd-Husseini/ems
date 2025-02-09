@@ -18,6 +18,23 @@ export async function createEmployee({ request }) {
   }
 }
 
+export async function loadEmployeeList({ request }) {
+  const url = new URL(request.url);
+  const searchParams = new URLSearchParams(url.search);
+  
+  const params = {
+    page: searchParams.get('page') || 1,
+    search: searchParams.get('search'),
+    ordering: searchParams.get('ordering'),
+    department: searchParams.get('department'),
+    job_title: searchParams.get('job_title'),
+    min_salary: searchParams.get('min_salary'),
+    max_salary: searchParams.get('max_salary'),
+  };
+
+  return employeeApi.getEmployees(params);
+}
+
 const SingleEmployeeView = () => {
   const { id } = useParams();
   const employee = useLoaderData();

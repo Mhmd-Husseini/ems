@@ -1,12 +1,18 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import SingleEmployeeView from './pages/SingleEmployeeView';
-import { createEmployee, loadEmployee } from './pages/SingleEmployeeView';
+import EmployeeListPage from './pages/EmployeeListPage';
+import { createEmployee, loadEmployee, loadEmployeeList } from './pages/SingleEmployeeView';
 
 export const router = createBrowserRouter(
   [
     {
       path: '/',
-      element: <Navigate to="/employees/new" replace />,
+      element: <Navigate to="/employees" replace />,
+    },
+    {
+      path: '/employees',
+      element: <EmployeeListPage />,
+      loader: loadEmployeeList,
     },
     {
       path: '/employees/new',

@@ -3,6 +3,24 @@ import { config } from '../config/config';
 const { API_BASE_URL } = config;
 
 export const employeeApi = {
+  getEmployees: async (params = {}) => {
+    try {
+      const queryString = new URLSearchParams(
+        Object.entries(params).filter(([_, value]) => value !== null && value !== '')
+      ).toString();
+      
+      const response = await fetch(`${API_BASE_URL}/employees/${queryString ? `?${queryString}` : ''}`);
+      
+      if (!response.ok) {
+        throw new Error('Failed to load employees');
+      }
+      
+      return response.json();
+    } catch (error) {
+      throw new Error('Network error occurred');
+    }
+  },
+  
   getEmployee: async (id) => {
     try {
       const response = await fetch(`${API_BASE_URL}/employees/${id}`);
