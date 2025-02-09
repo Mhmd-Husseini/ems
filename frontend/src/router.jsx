@@ -2,6 +2,13 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import SingleEmployeeView from './pages/SingleEmployeeView';
 import EmployeeListPage from './pages/EmployeeListPage';
 import { createEmployee, loadEmployee, loadEmployeeList } from './pages/SingleEmployeeView';
+import TimesheetListPage from './pages/TimesheetListPage';
+import SingleTimesheetView, { 
+  loadTimesheet, 
+  createTimesheet, 
+  updateTimesheet,
+  loadTimesheetList 
+} from './pages/SingleTimesheetView';
 
 export const router = createBrowserRouter(
   [
@@ -24,6 +31,22 @@ export const router = createBrowserRouter(
       element: <SingleEmployeeView />,
       loader: loadEmployee,
       action: createEmployee,
+    },
+    {
+      path: '/timesheets',
+      element: <TimesheetListPage />,
+      loader: loadTimesheetList,
+    },
+    {
+      path: '/timesheets/new',
+      element: <SingleTimesheetView />,
+      action: createTimesheet,
+    },
+    {
+      path: '/timesheets/:id',
+      element: <SingleTimesheetView />,
+      loader: loadTimesheet,
+      action: updateTimesheet,
     },
   ],
   {
