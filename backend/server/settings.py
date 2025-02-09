@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'employees',
     'corsheaders',
     'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

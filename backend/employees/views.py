@@ -3,9 +3,14 @@ from rest_framework import status
 from rest_framework.decorators import api_view, parser_classes
 from rest_framework.response import Response
 from .models import Employee
-from .serializers import EmployeeSerializer
+from .serializers import EmployeeSerializer, EmployeeListSerializer
 from rest_framework.parsers import MultiPartParser, FormParser
 import os
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.generics import ListAPIView
+from .utils.filters import EmployeeFilter
+from .utils.pagination import CustomPageNumberPagination
 
 @api_view(['GET', 'PUT'])
 def employee_detail(request, pk):
@@ -50,3 +55,13 @@ def employee_create(request):
     except Exception as e:
         print("Error:", str(e))  
         return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+class EmployeeListView(ListAPIView):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeListSerializer
+    pagination_class = CustomPageNumberPagination
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_class = EmployeeFilter
+    search_fields = ['first_name', 'last_name', 'email', 'department', 'job_title']
+    ordering_fields = ['first_name', 'last_name', 'department', 'job_title', 'salary', 'start_date']
+    ordering = ['last_name', 'first_name']
