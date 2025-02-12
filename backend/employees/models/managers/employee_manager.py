@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Q
+from ...enums import Department
 
 class EmployeeManager(models.Manager):
     def active(self):
@@ -17,7 +18,9 @@ class EmployeeManager(models.Manager):
 
     def by_department(self, department):
         """Get employees by department"""
-        return self.filter(department=department)
+        if department in Department.values:
+            return self.filter(department=department)
+        return self.none()
 
     def with_documents(self):
         """Get employees who have uploaded documents"""

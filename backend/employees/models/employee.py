@@ -5,6 +5,7 @@ from decimal import Decimal
 from .base import TimeStampedModel
 from .managers.employee_manager import EmployeeManager
 from ..utils.validators import validate_future_date
+from ..enums import Department, JobPosition
 
 class Employee(TimeStampedModel):
     """Employee model for storing employee information"""
@@ -34,10 +35,12 @@ class Employee(TimeStampedModel):
     # Employment Information
     job_title = models.CharField(
         max_length=100,
+        choices=JobPosition.choices,
         help_text="Employee's job title"
     )
     department = models.CharField(
         max_length=100,
+        choices=Department.choices,
         help_text="Employee's department"
     )
     salary = models.DecimalField(
