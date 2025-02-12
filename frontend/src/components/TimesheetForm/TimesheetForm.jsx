@@ -25,7 +25,17 @@ const TimesheetForm = ({ timesheetId, initialData, actionData }) => {
   useEffect(() => {
     loadEmployees();
     if (initialData) {
-      setFormData(initialData);
+      const formatDate = (dateString) => {
+        if (!dateString) return '';
+        const date = new Date(dateString);
+        return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}T${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+      };
+
+      setFormData({
+        ...initialData,
+        start_time: formatDate(initialData.start_time),
+        end_time: formatDate(initialData.end_time)
+      });
     }
   }, [initialData]);
 
@@ -63,13 +73,6 @@ const TimesheetForm = ({ timesheetId, initialData, actionData }) => {
     setFormData(prev => ({
       ...prev,
       [name]: value
-    }));
-  };
-
-  const handleEmployeeChange = (employeeId) => {
-    setFormData(prev => ({
-      ...prev,
-      employee: employeeId
     }));
   };
 
@@ -115,7 +118,7 @@ const TimesheetForm = ({ timesheetId, initialData, actionData }) => {
           <label htmlFor="employee">Employee</label>
           <EmployeeSelector
             value={formData.employee}
-            onChange={handleEmployeeChange}
+            onChange={(value) => handleChange({ target: { name: 'employee', value }})}
             error={errors.employee}
           />
         </div>
