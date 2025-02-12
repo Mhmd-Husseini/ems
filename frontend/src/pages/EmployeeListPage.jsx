@@ -1,16 +1,14 @@
 import React from 'react';
 import { useLoaderData, useSearchParams, Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import EmployeeList from '../components/EmployeeList/EmployeeList';
 import SearchBar from '../components/common/SearchBar/SearchBar';
 import FilterPanel from '../components/common/FilterPanel/FilterPanel';
 import MainLayout from '../layouts/MainLayout/MainLayout';
-import './EmployeeListPage.css';
+import './styles/EmployeeListPage.css';
 
 const EmployeeListPage = () => {
   const data = useLoaderData();
   const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
 
   const handleSearch = (query) => {
     searchParams.set('search', query);

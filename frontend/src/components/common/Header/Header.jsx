@@ -23,12 +23,6 @@ const Header = () => {
           >
             Timesheets
           </NavLink>
-          <NavLink 
-            to="/reports" 
-            className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
-          >
-            Reports
-          </NavLink>
         </nav>
 
         <div className="header-actions">

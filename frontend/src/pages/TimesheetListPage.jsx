@@ -4,7 +4,7 @@ import TimesheetList from '../components/TimesheetList/TimesheetList';
 import SearchBar from '../components/common/SearchBar/SearchBar';
 import ResponseModal from '../components/common/ResponseModal/ResponseModal';
 import MainLayout from '../layouts/MainLayout';
-import './TimesheetListPage.css';
+import './styles/TimesheetListPage.css';
 
 const TimesheetListPage = () => {
   const data = useLoaderData();
