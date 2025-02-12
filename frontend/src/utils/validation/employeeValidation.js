@@ -26,6 +26,14 @@ export const validateEmployee = (formData) => {
     errors.salary = 'Salary must be at least $15,000';
   }
 
+  const salary = formData.get('salary');
+  if (salary) {
+    const [whole] = salary.toString().split('.');
+    if (whole.length > 8) {
+      errors.salary = 'Salary cannot have more than 8 digits before the decimal point';
+    }
+  }
+
   return errors;
 };
 
