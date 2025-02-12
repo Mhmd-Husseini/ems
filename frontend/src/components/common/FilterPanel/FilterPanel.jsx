@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { DEPARTMENTS, JOB_POSITIONS } from '../../../constants/employeeEnums';
 import './FilterPanel.css';
 
 const FilterPanel = ({ filters, onFilter }) => {
@@ -18,22 +19,32 @@ const FilterPanel = ({ filters, onFilter }) => {
     <div className="filter-panel">
       <div className="filter-group">
         <label>Department:</label>
-        <input
-          type="text"
-          value={filterValues.department}
+        <select
+          value={filterValues.department || ''}
           onChange={(e) => handleChange('department', e.target.value)}
-          placeholder="Filter by department"
-        />
+        >
+          <option value="">All Departments</option>
+          {Object.entries(DEPARTMENTS).map(([key, value]) => (
+            <option key={key} value={key}>
+              {value}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="filter-group">
         <label>Job Title:</label>
-        <input
-          type="text"
-          value={filterValues.job_title}
+        <select
+          value={filterValues.job_title || ''}
           onChange={(e) => handleChange('job_title', e.target.value)}
-          placeholder="Filter by job title"
-        />
+        >
+          <option value="">All Positions</option>
+          {Object.entries(JOB_POSITIONS).map(([key, value]) => (
+            <option key={key} value={key}>
+              {value}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="filter-group">

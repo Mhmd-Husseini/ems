@@ -3,6 +3,7 @@ import { Form, useNavigate, useSubmit } from 'react-router-dom';
 import { validateEmployee } from '../../utils/validation/employeeValidation';
 import './EmployeeForm.css';
 import ResponseModal from '../common/ResponseModal/ResponseModal';
+import { DEPARTMENTS, JOB_POSITIONS } from '../../constants/employeeEnums';
 
 
 const EmployeeForm = ({ employeeId, initialData, actionData }) => {
@@ -78,6 +79,11 @@ const EmployeeForm = ({ employeeId, initialData, actionData }) => {
     });
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
   return (
     <>
       <Form 
@@ -93,7 +99,7 @@ const EmployeeForm = ({ employeeId, initialData, actionData }) => {
               name="first_name"
               type="text"
               value={formData.first_name}
-              onChange={(e) => setFormData({...formData, first_name: e.target.value})}
+              onChange={handleChange}
             />
             {errors.first_name && <span className="error">{errors.first_name}</span>}
           </div>
@@ -104,7 +110,7 @@ const EmployeeForm = ({ employeeId, initialData, actionData }) => {
               name="last_name"
               type="text"
               value={formData.last_name}
-              onChange={(e) => setFormData({...formData, last_name: e.target.value})}
+              onChange={handleChange}
             />
             {errors.last_name && <span className="error">{errors.last_name}</span>}
           </div>
@@ -115,7 +121,7 @@ const EmployeeForm = ({ employeeId, initialData, actionData }) => {
               name="email"
               type="email"
               value={formData.email}
-              onChange={(e) => setFormData({...formData, email: e.target.value})}
+              onChange={handleChange}
             />
             {errors.email && <span className="error">{errors.email}</span>}
           </div>
@@ -126,7 +132,7 @@ const EmployeeForm = ({ employeeId, initialData, actionData }) => {
               name="phone"
               type="tel"
               value={formData.phone}
-              onChange={(e) => setFormData({...formData, phone: e.target.value})}
+              onChange={handleChange}
             />
           </div>
 
@@ -136,29 +142,47 @@ const EmployeeForm = ({ employeeId, initialData, actionData }) => {
               name="date_of_birth"
               type="date"
               value={formData.date_of_birth}
-              onChange={(e) => setFormData({...formData, date_of_birth: e.target.value})}
+              onChange={handleChange}
             />
             {errors.date_of_birth && <span className="error">{errors.date_of_birth}</span>}
           </div>
 
           <div className="form-group">
-            <label>Job Title:</label>
-            <input
-              name="job_title"
-              type="text"
-              value={formData.job_title}
-              onChange={(e) => setFormData({...formData, job_title: e.target.value})}
-            />
+            <label htmlFor="department">Department</label>
+            <select
+              id="department"
+              name="department"
+              value={formData.department || ''}
+              onChange={handleChange}
+              className={errors.department ? 'error' : ''}
+            >
+              <option value="">Select Department</option>
+              {Object.entries(DEPARTMENTS).map(([key, value]) => (
+                <option key={key} value={key}>
+                  {value}
+                </option>
+              ))}
+            </select>
+            {errors.department && <div className="error-message">{errors.department}</div>}
           </div>
 
           <div className="form-group">
-            <label>Department:</label>
-            <input
-              name="department"
-              type="text"
-              value={formData.department}
-              onChange={(e) => setFormData({...formData, department: e.target.value})}
-            />
+            <label htmlFor="job_title">Job Title</label>
+            <select
+              id="job_title"
+              name="job_title"
+              value={formData.job_title || ''}
+              onChange={handleChange}
+              className={errors.job_title ? 'error' : ''}
+            >
+              <option value="">Select Job Title</option>
+              {Object.entries(JOB_POSITIONS).map(([key, value]) => (
+                <option key={key} value={key}>
+                  {value}
+                </option>
+              ))}
+            </select>
+            {errors.job_title && <div className="error-message">{errors.job_title}</div>}
           </div>
 
           <div className="form-group">
@@ -167,7 +191,7 @@ const EmployeeForm = ({ employeeId, initialData, actionData }) => {
               name="salary"
               type="number"
               value={formData.salary}
-              onChange={(e) => setFormData({...formData, salary: e.target.value})}
+              onChange={handleChange}
             />
             {errors.salary && <span className="error">{errors.salary}</span>}
           </div>
@@ -178,7 +202,7 @@ const EmployeeForm = ({ employeeId, initialData, actionData }) => {
               name="start_date"
               type="date"
               value={formData.start_date}
-              onChange={(e) => setFormData({...formData, start_date: e.target.value})}
+              onChange={handleChange}
             />
           </div>
 

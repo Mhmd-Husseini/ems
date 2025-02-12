@@ -32,3 +32,13 @@
 .salary-range input {
   width: 120px;
 } 
+
+.filter-group select {
+  height: 30px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  padding: 5px;
+  font-size: 0.9em;
+  color: #333;
+  
+}
