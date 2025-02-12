@@ -12,13 +12,19 @@ class EmployeeListSerializer(serializers.ModelSerializer):
         return f"{obj.first_name} {obj.last_name}"
 
 class EmployeeSerializer(serializers.ModelSerializer):
-    photo = serializers.ImageField(required=False)
-    cv = serializers.FileField(required=False)
-    id_document = serializers.FileField(required=False)
+    photo = serializers.ImageField(required=False, allow_null=True)
+    cv = serializers.FileField(required=False, allow_null=True)
+    id_document = serializers.FileField(required=False, allow_null=True)
 
     class Meta:
         model = Employee
         fields = '__all__'
+
+    def validate(self, data):
+        for field in ['photo', 'cv', 'id_document']:
+            if field in data and data[field] is None:
+                data.pop(field)
+        return data
 
 class TimesheetSerializer(serializers.ModelSerializer):
     employee = serializers.PrimaryKeyRelatedField(
