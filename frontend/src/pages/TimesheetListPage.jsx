@@ -33,6 +33,10 @@ const TimesheetListPage = () => {
     }
   };
 
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <MainLayout>
       <div className="timesheet-list-page">

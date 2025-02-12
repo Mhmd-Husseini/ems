@@ -22,4 +22,29 @@
 
 .timesheet-list tr:hover {
   background-color: #f8f8f8;
+}
+
+.calendar-wrapper.sx-react-calendar-wrapper {
+  width: 100%;
+  height: 700px;
+  max-height: calc(90vh - 200px);
+  margin-top: 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.sx-event {
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+.sx-event-title {
+  font-weight: 500;
+  font-size: 0.9em;
+}
+
+.sx-event-description {
+  font-size: 0.8em;
+  opacity: 0.8;
 } 
