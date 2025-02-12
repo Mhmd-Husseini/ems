@@ -1,15 +1,16 @@
 import React from 'react';
+import Header from '../../components/common/Header/Header';
+import Footer from '../../components/common/Footer/Footer';
 import './MainLayout.css';
 
 const MainLayout = ({ children }) => {
   return (
     <div className="main-layout">
-      <header className="main-header">
-        <h1>Employee Management System</h1>
-      </header>
+      <Header />
       <main className="main-content">
         {children}
       </main>
+      <Footer />
     </div>
   );
 };
