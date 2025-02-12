@@ -55,13 +55,18 @@ const EmployeeForm = ({ employeeId, initialData, actionData }) => {
     if (files.id_document) formDataObj.set('id_document', files.id_document);
 
     submit(formDataObj, { 
-      method: 'post',
+      method: employeeId ? 'put' : 'post',
       encType: 'multipart/form-data'  
     });
   };
 
   return (
-    <Form method="post" onSubmit={handleSubmit} className="employee-form" encType="multipart/form-data">
+    <Form 
+      method={employeeId ? 'put' : 'post'}
+      onSubmit={handleSubmit} 
+      className="employee-form" 
+      encType="multipart/form-data"
+    >
       <div className="form-grid">
         <div className="form-group">
           <label>First Name:</label>

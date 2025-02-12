@@ -1,7 +1,7 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import SingleEmployeeView from './pages/SingleEmployeeView';
 import EmployeeListPage from './pages/EmployeeListPage';
-import { createEmployee, loadEmployee, loadEmployeeList } from './pages/SingleEmployeeView';
+import { createEmployee, updateEmployee, loadEmployee, loadEmployeeList } from './pages/SingleEmployeeView';
 import TimesheetListPage from './pages/TimesheetListPage';
 import SingleTimesheetView, { 
   loadTimesheet, 
@@ -30,7 +30,7 @@ export const router = createBrowserRouter(
       path: '/employees/:id',
       element: <SingleEmployeeView />,
       loader: loadEmployee,
-      action: createEmployee,
+      action: updateEmployee,
     },
     {
       path: '/timesheets',
