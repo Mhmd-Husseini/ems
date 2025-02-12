@@ -1,6 +1,7 @@
 .employee-list {
   width: 100%;
   overflow-x: auto;
+  min-height: 80vh;
 }
 
 .employee-list table {
