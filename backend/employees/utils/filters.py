@@ -3,7 +3,6 @@ from django.db.models import Q
 from typing import List, Dict, Any, Optional
 from functools import reduce
 import operator
-from ..models import Employee
 
 class DynamicFilterSet(filters.FilterSet):
     """
@@ -72,10 +71,8 @@ class EmployeeFilter(DynamicFilterSet):
     start_date_before = filters.DateFilter(field_name='start_date', lookup_expr='lte')
     
     class Meta:
-        model = Employee
+        model = None  
         fields = ['department', 'job_title']
-        
-        # Fields to search across when using the search filter
         search_fields = [
             'first_name',
             'last_name',
@@ -83,27 +80,22 @@ class EmployeeFilter(DynamicFilterSet):
             'department',
             'job_title'
         ]
-        
-        # Configuration for related field filtering
-        related_fields = {
-            'department': {
-                'relation': 'department',
-                'field': 'name',
-                'lookup': 'icontains'
-            }
-        }
 
     def filter_name(self, queryset, name, value):
-        """
-        Custom filter for name searching
-        """
+        """Custom filter for name searching"""
         if not value:
             return queryset
+        
+        parts = value.split()
+        q_objects = Q()
+        
+        for part in parts:
+            q_objects |= (
+                Q(first_name__icontains=part) |
+                Q(last_name__icontains=part)
+            )
             
-        return queryset.filter(
-            Q(first_name__icontains=value) | 
-            Q(last_name__icontains=value)
-        )
+        return queryset.filter(q_objects)
 
 # Example usage of a more specific filter
 class AdvancedEmployeeFilter(DynamicFilterSet):
@@ -116,7 +108,7 @@ class AdvancedEmployeeFilter(DynamicFilterSet):
     skills = filters.CharFilter(method='filter_related')
 
     class Meta:
-        model = Employee
+        model = None  # We'll set this dynamically
         fields = ['department', 'job_title']
         search_fields = [
             'first_name',

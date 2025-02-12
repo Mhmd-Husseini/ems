@@ -7,4 +7,8 @@ class EmployeesConfig(AppConfig):
     verbose_name = 'Employee Management'
 
     def ready(self):
-        import employees.signals 
+        from .signals import employee, timesheet
+        from .utils.filters import EmployeeFilter
+        from .models import Employee
+        
+        EmployeeFilter._meta.model = Employee

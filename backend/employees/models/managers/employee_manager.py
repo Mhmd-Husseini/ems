@@ -19,14 +19,10 @@ class EmployeeManager(models.Manager):
         """Get employees by department"""
         return self.filter(department=department)
 
-class TimesheetManager(models.Manager):
-    def for_employee(self, employee_id):
-        """Get timesheets for a specific employee"""
-        return self.filter(employee_id=employee_id)
-
-    def in_date_range(self, start_date, end_date):
-        """Get timesheets within a date range"""
+    def with_documents(self):
+        """Get employees who have uploaded documents"""
         return self.filter(
-            start_time__date__gte=start_date,
-            end_time__date__lte=end_date
+            Q(photo__isnull=False) |
+            Q(cv__isnull=False) |
+            Q(id_document__isnull=False)
         ) 
