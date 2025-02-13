@@ -38,9 +38,9 @@ pip install -r requirements.txt
 
 4. Run migrations:
 ```bash
-python manage.py makemigrations
 python manage.py migrate
 ```
+(this will also seed the database with some data)
 
 5. Start the development server:
 ```bash
@@ -71,3 +71,11 @@ The frontend application will run at `http://localhost:5173`
 - `GET /api/employees/{id}` - Get employee details
 - `POST /api/employees/` - Create new employee
 - `PUT /api/employees/{id}/` - Update employee details
+
+- `GET /api/timesheets/` - Get all timesheets
+- `POST /api/timesheets/` - Create new timesheet
+- `PUT /api/timesheets/{id}/` - Update timesheet details
+
+
+
+

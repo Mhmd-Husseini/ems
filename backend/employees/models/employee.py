@@ -34,13 +34,15 @@ class Employee(TimeStampedModel):
     
     # Employment Information
     job_title = models.CharField(
-        max_length=100,
+        max_length=50,
         choices=JobPosition.choices,
+        default=JobPosition.JUNIOR_DEVELOPER,
         help_text="Employee's job title"
     )
     department = models.CharField(
-        max_length=100,
+        max_length=50,
         choices=Department.choices,
+        default=Department.ENGINEERING,
         help_text="Employee's department"
     )
     salary = models.DecimalField(

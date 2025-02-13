@@ -1,20 +1,18 @@
 from django.db import models
 
 class Department(models.TextChoices):
-    IT = 'IT', 'Information Technology'
-    HR = 'HR', 'Human Resources'
-    FINANCE = 'FINANCE', 'Finance'
+    ENGINEERING = 'ENGINEERING', 'Engineering'
     MARKETING = 'MARKETING', 'Marketing'
     SALES = 'SALES', 'Sales'
-    OPERATIONS = 'OPERATIONS', 'Operations'
-    LEGAL = 'LEGAL', 'Legal'
+    HR = 'HR', 'Human Resources'
+    FINANCE = 'FINANCE', 'Finance'
+    IT = 'IT', 'Information Technology'
 
 class JobPosition(models.TextChoices):
-    DEVELOPER = 'DEVELOPER', 'Developer'
-    MANAGER = 'MANAGER', 'Manager'
-    ANALYST = 'ANALYST', 'Analyst'
-    DESIGNER = 'DESIGNER', 'Designer'
-    COORDINATOR = 'COORDINATOR', 'Coordinator'
-    SPECIALIST = 'SPECIALIST', 'Specialist'
-    DIRECTOR = 'DIRECTOR', 'Director'
-    CONSULTANT = 'CONSULTANT', 'Consultant' 
+    SENIOR_DEVELOPER = 'SENIOR_DEVELOPER', 'Senior Developer'
+    JUNIOR_DEVELOPER = 'JUNIOR_DEVELOPER', 'Junior Developer'
+    MARKETING_MANAGER = 'MARKETING_MANAGER', 'Marketing Manager'
+    SALES_REPRESENTATIVE = 'SALES_REPRESENTATIVE', 'Sales Representative'
+    HR_MANAGER = 'HR_MANAGER', 'HR Manager'
+    FINANCE_ANALYST = 'FINANCE_ANALYST', 'Finance Analyst'
+    PROJECT_MANAGER = 'PROJECT_MANAGER', 'Project Manager' 
