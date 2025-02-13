@@ -1,6 +1,7 @@
 # Employee Management System (EMS)
 A full-stack employee management system with React frontend and Django backend.
-
+hosted at:  
+http://ems.publicvm.com
 
 ## Project Structure
 ems/
