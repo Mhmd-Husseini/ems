@@ -9,7 +9,14 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app_network
     restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   backend:
     build: 
@@ -17,34 +24,40 @@ services:
       dockerfile: Dockerfile
     env_file:
       - ./backend/.env
+    volumes:
+      - static_volume:/app/staticfiles
+      - media_volume:/app/mediafiles
+    networks:
+      - app_network
     depends_on:
       - db
     restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-      args:
-        - VITE_API_BASE_URL=${VITE_API_BASE_URL}
-    env_file:
-      - ./frontend/.env
     ports:
       - "80:80"
-      - "443:443"
     volumes:
-      - ./certbot/conf:/etc/nginx/ssl
-      - ./certbot/www:/var/www/certbot
+      - static_volume:/usr/share/nginx/html/static
+      - media_volume:/usr/share/nginx/html/media
+    networks:
+      - app_network
     depends_on:
       - backend
     restart: always
 
-  certbot:
-    image: certbot/certbot
-    volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+networks:
+  app_network:
+    driver: bridge
 
 volumes:
-  postgres_data: 
+  postgres_data:
+  static_volume:
+  media_volume:
